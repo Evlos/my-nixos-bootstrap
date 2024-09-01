@@ -6,8 +6,13 @@
       ./hardware-configuration.nix
     ];
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
+  boot.loader.grub = {
+    enable = true;
+    version = 2;
+    efiSupport = false;
+    device = "/dev/sda";
+  };
+  fileSystems."/".device = "/dev/disk/by-label/nixos";
 
   networking.hostName = ""; # TODO: fill in
   networking.networkmanager.enable = true;
@@ -33,6 +38,15 @@
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKQ8q1i5or0ARt3wqkEr3g7JW7jvQZ0IsXQOauSgMXAJ evlos@flamebook"
     ];
+  };
+
+  services.openssh = {
+    enable = true;
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = true;
+    };
+    openFirewall = true;
   };
 
   environment.systemPackages = with pkgs; [
