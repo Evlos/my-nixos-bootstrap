@@ -8,7 +8,6 @@
 
   boot.loader.grub = {
     enable = true;
-    version = 2;
     efiSupport = false;
     device = "/dev/sda";
   };
@@ -20,9 +19,6 @@
   time.timeZone = "Asia/Shanghai";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  nix.binaryCaches = [
-    "https://mirrors.ustc.edu.cn/nix-channels/store"
-  ];
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
